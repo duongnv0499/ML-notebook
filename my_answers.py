@@ -27,7 +27,7 @@ class NeuralNetwork(object):
         # implementation there instead.
         #
         def sigmoid(x):
-            return 1/(1-np.exp(-x))# Replace 0 with your sigmoid calculation here
+            return 1/(1+np.exp(-x))# Replace 0 with your sigmoid calculation here
         self.activation_function = sigmoid
         
         def sigmoid_prime(x):

@@ -72,7 +72,7 @@ class NeuralNetwork(object):
 
         # TODO: Output layer - Replace these values with your calculations.
         final_inputs = np.dot(hidden_outputs, self.weights_hidden_to_output) # signals into final output layer
-        final_outputs = self.activation_function(final_inputs) # signals from final output layer
+        final_outputs = final_inputs#self.activation_function(final_inputs) # signals from final output layer
         
         return final_outputs, hidden_outputs
 
@@ -94,17 +94,17 @@ class NeuralNetwork(object):
                       
                           
         # TODO: Backpropagated error terms - Replace these values with your calculations.
-        output_error_term = error*self.sigmoid_derivative(final_outputs)
+        output_error_term = error #* self.sigmoid_derivative(hidden_outputs)
         
         # TODO: Calculate the hidden layer's contribution to the error
-        hidden_error = np.dot(self.weights_hidden_to_output, output_error_term)
+        hidden_error = np.dot(self.weights_hidden_to_output, output_error_term )
         
         hidden_error_term = hidden_error*self.sigmoid_derivative(hidden_outputs)
         
         # Weight step (input to hidden)
         delta_weights_i_h = delta_weights_i_h + (hidden_error_term*X[:, None])
         # Weight step (hidden to output)
-        delta_weights_h_o = delta_weights_h_o + (output_error_term*hidden_outputs)
+        delta_weights_h_o = delta_weights_h_o + (hidden_outputs[:, None]*output_error_term )
         return delta_weights_i_h, delta_weights_h_o
 
     def update_weights(self, delta_weights_i_h, delta_weights_h_o, n_records):
@@ -133,7 +133,7 @@ class NeuralNetwork(object):
 
         # TODO: Output layer - Replace these values with your calculations.
         final_inputs = np.dot(hidden_outputs, self.weights_hidden_to_output) # signals into final output layer
-        final_outputs = self.activation_function(final_inputs) # signals from final output layer
+        final_outputs = final_inputs#self.activation_function(final_inputs) # signals from final output layer
         
         return final_outputs
 
@@ -141,7 +141,7 @@ class NeuralNetwork(object):
 #########################################################
 # Set your hyperparameters here
 ##########################################################
-iterations = 1000
-learning_rate = 0.05
-hidden_nodes = 5
+iterations = 5000
+learning_rate = 0.5
+hidden_nodes = 20
 output_nodes = 1
